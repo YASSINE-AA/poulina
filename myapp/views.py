@@ -26,7 +26,6 @@ def addnew(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Employee added successfully!')
-            time.sleep(1)
             return redirect('index')
     else:
         form = EmployeeForm()
@@ -63,7 +62,7 @@ def update(request, id):
         if form.is_valid():
             form.update(old_pass)
             messages.success(request, 'Employee modified successfully!')
-            time.sleep(1)
+            return redirect('index')
     else:
         form = EmployeeForm(instance=existing_employee)
     
@@ -73,7 +72,6 @@ def delete_employee(request, id):
     employee = get_object_or_404(Employee, id=id)
     employee.delete()
     messages.success(request, 'Employee deleted successfully!')
-    time.sleep(2)
     return redirect('index')
 
 def login_view(request):
@@ -136,7 +134,6 @@ def add_visitor(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Visitor added successfully')
-            time.sleep(1)
             return redirect('gestion_visites')
     else:
         form = VisitorForm()
@@ -149,7 +146,7 @@ def edit_visitor(request, visitor_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Visitor modified successfully')
-            time.sleep(2)
+            return redirect('gestion_visites')
     else:
         form = VisitorForm(instance=visitor)
     return render(request, 'edit_visitor.html', {'visitor': visitor})
@@ -300,6 +297,7 @@ def add_courrier(request):
             courrier.statut = 'en cours'
             courrier.save()
             messages.success(request, 'Courrier ajouté avec succès')
+            return redirect('list_courriers')
     else:
         form = CourrierForm()
     return render(request, 'add_courrier.html', {'form': form})
