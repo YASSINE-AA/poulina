@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Update Visitor Details{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Update Visitor Details</h2>
+    {% if messages %}
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        {% for message in messages %}
+        <i class="fa fa-check-circle me-2"></i>{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- Form -->
+    <form id="updateVisitorForm" method="post" class="needs-validation" novalidate action="{% url 'edit_visitor' visitor.id %}">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="id_name" class="form-label">Name:</label>
+                <input type="text" class="form-control" name="name" id="id_name" required maxlength="100" value="{{ visitor.name }}">
+                <div class="invalid-feedback">
+                    Please provide a valid name.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_email" class="form-label">Email:</label>
+                <input type="email" class="form-control" name="email" id="id_email" required maxlength="254" value="{{ visitor.email }}">
+                <div class="invalid-feedback">
+                    Please provide a valid email.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_contact" class="form-label">Contact:</label>
+                <input type="text" class="form-control" name="contact" id="id_contact" required maxlength="15" value="{{ visitor.contact }}">
+                <div class="invalid-feedback">
+                    Please provide a valid contact number.
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-success btn-lg">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('updateVisitorForm').addEventListener('submit', function(event) {
+                if (!confirm('Are you sure you want to update visitor details?')) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+    {% endblock content %}
+
+

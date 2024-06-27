@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Employee{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if messages %}
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        {% for message in messages %}
+        <i class="fa fa-check-circle me-2"></i>{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <h2>Update Employee Details</h2>
+
+    <!-- Form -->
+    <form method="post" action="{% url 'update' employee.id %}" id="updateEmployeeForm" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="id_name" class="form-label">Name:</label>
+                {{ form.name }}
+                <div class="invalid-feedback">
+                    Please provide a valid name.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_email" class="form-label">Email:</label>
+                {{ form.email }}
+                <div class="invalid-feedback">
+                    Please provide a valid email.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_contact" class="form-label">Contact:</label>
+                {{ form.contact }}
+                <div class="invalid-feedback">
+                    Please provide a valid contact number.
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('updateEmployeeForm').addEventListener('submit', function(event) {
+            if (!confirm('Are you sure you want to update employee details?')) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+{% endblock %}

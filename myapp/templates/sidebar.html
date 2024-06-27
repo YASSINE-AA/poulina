@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bureau d'ordre{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100%;
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1269%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='url(%26quot%3b%23SvgjsLinearGradient1270%26quot%3b)'%3e%3c/rect%3e%3cpath d='M241.39197962752507 278.366237231093L347.26960292012825 259.69715559132 266.32716881416724 110.21526147230168z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M527.6025005191418 59.55895000406095L493.81155569363955-67.03302928361488 411.4213877204873 12.53023108252755z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M654.3155387294847-14.615749112054324L629.6525750200068 124.47957432669173 746.4125237508081 84.27589985239112z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M305.1478394148588 388.8633508622976L429.5329555699372 319.91555511153365 360.58515981917327 195.53043895645527 236.2000436640949 264.4782347072192z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M123.59625653330896 527.3558735480203L245.1642540489113 586.7920316876678 238.97339481409372 468.6634004136308z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M340.098%2c484.707C375.554%2c484.803%2c401.409%2c453.478%2c416.533%2c421.409C429.426%2c394.072%2c423.893%2c363.779%2c409.72%2c337.083C394.362%2c308.154%2c372.834%2c278.502%2c340.098%2c277.438C306.071%2c276.332%2c278.056%2c302.176%2c262.173%2c332.289C247.383%2c360.33%2c249.947%2c392.769%2c264.378%2c420.996C280.472%2c452.475%2c304.744%2c484.611%2c340.098%2c484.707' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1269'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='0%25' y1='50%25' x2='100%25' y2='50%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1270'%3e%3cstop stop-color='%230e2a47' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(0%2c 106%2c 158%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");            z-index: 100;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 60px; /* Collapsed width */
+        }
+
+        .sidebar .logo {
+            padding: 16px 24px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 500;
+            color: #ffffff; /* White text color */
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .logo {
+            opacity: 0; /* Hide logo text in collapsed state */
+        }
+
+        .sidebar .profile {
+            padding: 16px 24px;
+            text-align: center;
+            border-top: 1px solid #2d3a4b; /* Light border */
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .profile {
+            opacity: 0; /* Hide profile text in collapsed state */
+        }
+
+        .sidebar .profile p {
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #ffffff; /* White text color */
+        }
+
+        .sidebar .profile a {
+            display: block;
+            text-decoration: none;
+            color: #4f8ef7; /* Light blue */
+            transition: color 0.3s ease;
+        }
+
+        .sidebar .profile a:hover {
+            color: #1c75bc; /* Darker blue on hover */
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 12px 24px;
+            text-decoration: none;
+            color: #ffffff; /* White text color */
+            transition: background-color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #334155; /* Light grey background on hover */
+            color: #4f8ef7; /* Light blue text on hover */
+            padding-left: 30px;
+        }
+
+        .sidebar a i {
+            margin-right: 12px;
+            color: #cbd5e1; /* Light grey icon color */
+        }
+
+        .sidebar.collapsed a span {
+            display: none; /* Hide text in collapsed state */
+        }
+
+        /* Content area styles */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Media query for responsiveness */
+        @media screen and (max-width: 767px) {
+            .sidebar {
+                width: 60px; /* Default collapsed state */
+          }
+            .sidebar.collapsed {
+                width: 60px; /* Maintain collapsed width */
+                overflow: hidden;
+            }
+            .sidebar .logo {
+                font-size: 0; /* Hide logo text in collapsed state */
+            }
+            .sidebar .profile {
+                padding: 12px 16px;
+            }
+            .sidebar a {
+                padding: 12px 0;
+                text-align: center;
+                justify-content: center;
+            }
+            .content {
+                margin-left: 60px; /* Adjust content margin */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar collapsed ">
+        <div class="logo">Poulina</div>
+        <a href="{% url 'home' %}"><i class="fas fa-home"></i> <span>Home</span></a>
+        {% if request.user.role == 'admin' %}
+        <a href="{% url 'index' %}"><i class="fas fa-users"></i> <span>Gestion des employés</span></a>
+        {% csrf_token %} 
+        <a href="https://app.powerbi.com/groups/me/reports/5d059524-1094-46d7-bc4c-5096e5c904d7/22f55a4ea78c26a24afd?experience=power-bi"><i class="fas fa-chart-line"></i> <span>BI Admin</span></a>
+        {% endif %}
+        {% if request.user.role == 'user' %}
+        {% csrf_token %} 
+        <a href="https://app.powerbi.com/groups/me/reports/5d059524-1094-46d7-bc4c-5096e5c904d7/22f55a4ea78c26a24afd?experience=power-bi"><i class="fas fa-chart-line"></i> <span>BI User</span></a>
+
+        {% endif %}
+        <a href="{% url 'gestion_visites' %}"><i class="fas fa-calendar-check"></i> <span>Gestion des visites</span></a>
+        <a href="{% url 'list_courriers' %}"><i class="fas fa-envelope"></i> <span>Gestion des courriers</span></a>
+        
+        <!-- Profile section -->
+        <div class="profile">
+            <p>{{ request.user.username }}</p>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script>
+        // Toggle sidebar collapse
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.addEventListener('mouseover', function() {
+            this.classList.remove('collapsed');
+        });
+        sidebar.addEventListener('mouseleave', function() {
+            this.classList.add('collapsed');
+        });
+    </script>
+</body>
+</html>

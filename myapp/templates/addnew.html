@@ -1,0 +1,61 @@
+
+{% extends "base.html" %}
+
+{% block title %}Add New Employee Records{% endblock title %}
+
+{% block content %}
+<div class="container">
+    {% if messages %}
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        {% for message in messages %}
+        <i class="fa fa-check-circle me-2"></i>{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Enter Employee Details</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" action="{% url 'addnew' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_name" class="form-label">Name:</label>
+                            {{ form.name }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email:</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_password" class="form-label">Password:</label>
+                            <input type="password" class="form-control" name="password" id="id_password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_contact" class="form-label">Contact:</label>
+                            {{ form.contact }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Role:</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="user" name="role" value="user" {% if form.role.value == 'user' %}checked{% endif %}>
+                                <label class="form-check-label" for="user">User</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="admin" name="role" value="admin" {% if form.role.value == 'admin' %}checked{% endif %}>
+                                <label class="form-check-label" for="admin">Admin</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

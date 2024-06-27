@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Ajouter une Visite{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+   <div style="display:flex; justify-content: center; align-items: center; flex-direction: column;">
+    <h1>Ajouter une visite</h1>
+    <a href="{% url 'add_visitor' %}"> <button class="btn btn-primary" style="width:11rem;">Ajouter visiteur</button> </a> 
+   </div>
+    <div class="form-wrapper">
+        <form method="post" class="form-content">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Soumettre</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .form-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 50vh;
+        background: #f4f4f4;
+        padding: 20px;
+    }
+
+    .form-content {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}

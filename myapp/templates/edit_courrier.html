@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Éditer Courrier</h2>
+
+    <!-- Form -->
+    <form id="editCourrierForm" method="post" class="needs-validation" novalidate action="{% url 'edit_courrier' pk=courrier.pk %}">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="id_expediteur" class="form-label">Expéditeur :</label>
+                {{ form.expediteur }}
+                <div class="invalid-feedback">
+                    {% for error in form.expediteur.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_destinataire" class="form-label">Destinataire :</label>
+                {{ form.destinataire }}
+                <div class="invalid-feedback">
+                    {% for error in form.destinataire.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_type_courrier" class="form-label">Type de Courrier :</label>
+                {{ form.type_courrier }}
+                <div class="invalid-feedback">
+                    {% for error in form.type_courrier.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_date_reception" class="form-label">Date de Réception :</label>
+                {{ form.date_reception }}
+                <div class="invalid-feedback">
+                    {% for error in form.date_reception.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="id_reference_courrier" class="form-label">Référence de Courrier :</label>
+                {{ form.reference_courrier }}
+                <div class="invalid-feedback">
+                    {% for error in form.reference_courrier.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">Sauvegarder</button>
+                <a href="{% url 'list_courriers' %}" class="btn btn-outline-secondary ms-2">Annuler</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap Toast for Success Message -->
+<div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <div class="toast-header">
+        <strong class="mr-auto text-success">Success</strong>
+      
+    </div>
+    <div class="toast-body">
+        Courrier updated successfully.
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir sauvegarder les modifications ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" id="confirmSaveButton">Confirmer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('editCourrierForm');
+            const confirmButton = document.getElementById('confirmSaveButton');
+            const successToast = document.getElementById('successToast');
+
+            confirmButton.addEventListener('click', function() {
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+              
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrftoken,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'expediteur': form.querySelector('#id_expediteur').value,
+                        'destinataire': form.querySelector('#id_destinataire').value,
+                        'type_courrier': form.querySelector('#id_type_courrier').value,
+                        'date_reception': form.querySelector('#id_date_reception').value,
+                        'reference_courrier': form.querySelector('#id_reference_courrier').value,
+                    }),
+                })
+                .then(response => {
+                    console.log(response);
+                    if (response.ok) {
+                        var bsToast = new bootstrap.Toast(successToast);
+                        bsToast.show();
+                      
+                    } else {
+                        console.error('Failed to update courier.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+                // Hide the modal after confirming
+                var confirmationModal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
+                confirmationModal.hide();
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    
+{% if messages %}
+<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+    {% for message in messages %}
+    <i class="fa fa-check-circle me-2"></i>{{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {% endfor %}
+</div>
+{% endif %}
+    <h2>Liste des Courriers</h2>
+
+    <!-- Navigation buttons -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{% url 'add_courrier' %}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i> Ajouter un Courrier
+        </a>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Expéditeur</th>
+                    <th>Destinataire</th>
+                    <th>Type</th>
+                    <th>Date de Réception</th>
+                    <th>Référence</th>
+                    <th>Reçu</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for courrier in courriers %}
+                <tr id="courrier-row-{{ courrier.pk }}">
+                    <td>{{ courrier.expediteur }}</td>
+                    <td>{{ courrier.destinataire }}</td>
+                    <td>{{ courrier.type_courrier }}</td>
+                    <td>{{ courrier.date_reception }}</td>
+                    <td>{{ courrier.reference_courrier }}</td>
+                    <td>{% if courrier.est_recu %}Oui{% else %}Non{% endif %}</td>
+                    <td>{% if courrier.statut == 'terminé' %}Terminé{% else %}En Cours{% endif %}</td>
+                    <td>
+                        {% if courrier.statut != 'terminé' %}
+                        <form id="terminerCourrierForm{{ courrier.pk }}" method="POST" action="{% url 'terminer_courrier' pk=courrier.pk %}" class="terminer-courrier-form" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="all:unset; color: green; cursor: pointer;" class="btn btn-success btn-sm terminer-btn" data-courrier-id="{{ courrier.pk }}">
+                                <i class="fas fa-check-circle me-1"></i>
+                            </button>
+                        </form>
+                        {% endif %}
+                        
+                        <!-- Edit Courier Button -->
+                        <a href="{% url 'edit_courrier' pk=courrier.pk %}" style="all:unset; color: #2196F3; margin-left: 1rem; cursor: pointer;" class="btn btn-sm btn-primary" title="Modifier"><i class="fa fa-edit"></i></a>
+                        
+                        <!-- Delete Courier Button (with Modal) -->
+                        <button type="button" style="all:unset; color: red; margin-left: 1rem; cursor: pointer;" class="btn btn-sm btn-danger" title="Supprimer" data-bs-toggle="modal" data-bs-target="#deleteModal{{ courrier.pk }}">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteModal{{ courrier.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ courrier.pk }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel{{ courrier.pk }}">Confirmation de Suppression</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Êtes-vous sûr de vouloir supprimer ce courrier ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                        <a href="{% url 'delete_courrier' pk=courrier.pk %}" class="btn btn-danger">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add event listener for each terminer form
+        document.querySelectorAll('.terminer-courrier-form').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                if (!confirm('Are you sure you want to mark this courier as completed?')) {
+                    return;
+                }
+
+                const formElement = this;
+                const formData = new FormData(this);
+
+                // Submit the form via AJAX
+                fetch(this.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                     
+                        const row = document.getElementById(`courrier-row-${formElement.querySelector('.terminer-btn').dataset.courrierId}`);
+                        row.querySelector('td:nth-child(7)').innerText = 'Terminé';
+                        formElement.remove();
+                        return response.json(); // Parse the JSON response
+                    
+                    } 
+                    
+                    throw new Error('Network response was not ok.');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

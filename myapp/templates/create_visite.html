@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Formulaire de Visite</h2>
+    <form id="visitForm" method="post" class="needs-validation" novalidate action="{% url 'submit_visit' %}">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="id_name" class="form-label">Nom :</label>
+                {{ form.name }}
+                <div class="invalid-feedback">
+                    {{ form.name.errors }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_email" class="form-label">Email :</label>
+                {{ form.email }}
+                <div class="invalid-feedback">
+                    {{ form.email.errors }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_contact" class="form-label">Contact :</label>
+                {{ form.contact }}
+                <div class="invalid-feedback">
+                    {{ form.contact.errors }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="id_date" class="form-label">Date de visite :</label>
+                {{ form.date_of_visit }}
+                <div class="invalid-feedback">
+                    {{ form.date_of_visit.errors }}
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="id_purpose" class="form-label">But de la visite :</label>
+                {{ form.purpose }}
+                <div class="invalid-feedback">
+                    {{ form.purpose.errors }}
+                </div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Soumettre</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap Toast for Success Message -->
+<div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <div class="toast-header">
+        <strong class="mr-auto text-success">Success</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        Visit submitted successfully.
+    </div>
+</div>
+{% endblock %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('visitForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                if (!confirm('Êtes-vous sûr de vouloir soumettre ce formulaire de visite ?')) {
+                    return;
+                }
+
+                fetch(this.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'name': this.querySelector('#id_name').value,
+                        'email': this.querySelector('#id_email').value,
+                        'contact': this.querySelector('#id_contact').value,
+                        'date_of_visit': this.querySelector('#id_date').value,
+                        'purpose': this.querySelector('#id_purpose').value,
+                    }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        var successToast = document.getElementById('successToast');
+                        var bsToast = new bootstrap.Toast(successToast);
+                        bsToast.show();
+
+                        // Optionally, reset the form after successful submission
+                        // this.reset();
+                    } else {
+                        console.error('Failed to submit visit form.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+{% endblock %}

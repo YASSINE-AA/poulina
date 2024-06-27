@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - Poulin Group Holding</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <style>
+        /* Resetting default margin and padding for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0; /* fallback color */
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1010%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M517.1051709895319 512.8699299448091L608.5079263221809 607.5202538557496 703.1582502331214 516.1174985231007 611.7554949004725 421.4671746121601z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M513.2541881958524 354.4192434889049L565.889532818643 255.4265578441979 466.896847173936 202.7912132214073 414.26150255114544 301.7838988661143z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1278.145458016459 158.91441293845912L1323.4019142818047 276.8115122621041 1396.042557340104 113.65795667311352z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M56.36437108342664 477.1416938889026L5.926562721185704 564.5025405947263 93.28740942700942 614.9403489569672 143.72521778925037 527.5795022511435z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M978.2316166056771 358.9627332961483L1078.8536893876997 410.35308974800563 1075.4067610613736 311.64597714727535z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M456.929%2c634.03C503.711%2c633.977%2c534.033%2c588.923%2c554.748%2c546.977C572.739%2c510.546%2c573.98%2c469.732%2c556.081%2c433.256C535.463%2c391.237%2c503.683%2c349.816%2c456.929%2c347.628C407.337%2c345.307%2c362.207%2c378.613%2c340.288%2c423.158C320.508%2c463.357%2c337.043%2c507.994%2c358.728%2c547.198C381.396%2c588.179%2c410.097%2c634.083%2c456.929%2c634.03' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M409.14%2c653.272C447.241%2c652.866%2c479.188%2c629.109%2c499.763%2c597.039C522.507%2c561.588%2c540.65%2c517.425%2c519.758%2c480.852C498.761%2c444.095%2c451.438%2c436.734%2c409.14%2c438.397C370.237%2c439.926%2c332.293%2c455.396%2c312.623%2c488.994C292.761%2c522.92%2c295.196%2c565.11%2c315.11%2c599.006C334.758%2c632.447%2c370.356%2c653.685%2c409.14%2c653.272' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M574.8972790840867 233.06629059625803L422.86889234102966 189.47285219333094 531.3038406811596 385.094677339315z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M506.45489139900536 32.26506520364707L593.9854261352948 76.86410025964265 638.5844611912904-10.6664344766468 551.0539264550009-55.265469532642385z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M804.2932652275059 116.87477820352329L895.1303863149532 185.46128406207572 908.9779007074779 86.93109942322583z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1091.793894458926 35.800851504688126L969.9179642766051 145.53843194341098 1079.655544715328 267.4143621257318 1201.5314748976489 157.67678168700897z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M368.585%2c587.036C405.424%2c587.794%2c439.76%2c569.547%2c459.575%2c538.481C481.094%2c504.743%2c489.523%2c462.307%2c470.646%2c427.023C450.81%2c389.947%2c410.616%2c367.184%2c368.585%2c368.406C328.427%2c369.573%2c294.531%2c396.867%2c276.307%2c432.671C259.7%2c465.298%2c265.07%2c503.444%2c283.855%2c534.867C302.095%2c565.38%2c333.044%2c586.305%2c368.585%2c587.036' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M644.4113507501014 386.27216520060324L693.4312361056286 323.5295731287322 574.8074053200584 281.371041131377z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1283.258380682756 118.4422578265271L1362.3431884988408 9.591358164530774 1253.4922888368444-69.49344965155389 1174.4074810207599 39.357450010442435z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1010'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+
+        form {
+            width: 340px;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="{% url 'login' %}">
+        <img src="{% static 'images/Poulina.png' %}" alt="Logo" class="logo">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Connexion</button>
+    </form>
+</body>
+</html>

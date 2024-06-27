@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard{% endblock title %}
+
+{% block sidebar %}
+    <!-- Do not render the sidebar -->
+{% endblock sidebar %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>User Dashboard</h1>
+            <ul>
+                <li><a href="{% url 'gestion_visites' %}">Gestion des visites</a></li>
+                <li><a href="{% url 'list_courriers' %}">Gestion des courriers</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}

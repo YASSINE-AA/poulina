@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="py-4">
+        <h2 class="mb-4">Visites en Cours</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Visiteur</th>
+                        <th>Employé</th>
+                        <th>Objet</th>
+                        <th>Date début</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for visite in visites %}
+                    <tr>
+                        <td>{{ visite.visiteur }}</td>
+                        <td>{{ visite.employee }}</td>
+                        <td>{{ visite.objet }}</td>
+                        <td>{{ visite.date_debut|date:"d M Y H:i" }}</td>
+                        <td>
+                            <a href="{% url 'terminer_visite' visite.pk %}" class="btn btn-success">Terminer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
