@@ -8,13 +8,13 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Enter Visitor Details</h3>
+                    <h3 class="card-title">Entrer les détails du visiteur</h3>
                 </div>
                 <div class="card-body">
                     <form id="addVisitorForm" method="POST" class="post-form" action="{% url 'add_visitor' %}">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="id_name">Name:</label>
+                            <label for="id_name">Nom:</label>
                             {{ form.name }}
                         </div>
                         <div class="form-group">
@@ -25,7 +25,7 @@
                             <label for="id_contact">Contact:</label>
                             {{ form.contact }}
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
                     </form>
                 </div>
             </div>
@@ -36,13 +36,13 @@
 <!-- Bootstrap Toast for Success Message -->
 <div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 20px; right: 20px;">
     <div class="toast-header">
-        <strong class="mr-auto text-success">Success</strong>
+        <strong class="mr-auto text-success">Succès</strong>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="toast-body">
-        Visitor record added successfully.
+        Le visiteur a bien été ajouté.
     </div>
 </div>
 

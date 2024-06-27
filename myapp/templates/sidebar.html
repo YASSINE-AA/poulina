@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,7 +133,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
 </head>
 <body>
     <div class="sidebar collapsed ">
-        <div class="logo">Poulina</div>
+        <div class="logo"><img src="{% static 'images/Poulina.png' %}" width="180px" alt="Logo"></div>
         <a href="{% url 'home' %}"><i class="fas fa-home"></i> <span>Home</span></a>
         {% if request.user.role == 'admin' %}
         <a href="{% url 'index' %}"><i class="fas fa-users"></i> <span>Gestion des employés</span></a>
@@ -149,7 +151,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
         <!-- Profile section -->
         <div class="profile">
             <p>{{ request.user.username }}</p>
-            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'logout' %}">Déconnexion</a>
         </div>
     </div>
 

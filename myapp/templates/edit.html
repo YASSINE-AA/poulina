@@ -19,28 +19,28 @@
         {% csrf_token %}
         <div class="row g-3">
             <div class="col-md-6">
-                <label for="id_name" class="form-label">Name:</label>
+                <label for="id_name" class="form-label">Nom:</label>
                 {{ form.name }}
                 <div class="invalid-feedback">
-                    Please provide a valid name.
+                    Veuillez fournir un nom valide.
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="id_email" class="form-label">Email:</label>
                 {{ form.email }}
                 <div class="invalid-feedback">
-                    Please provide a valid email.
+                    Veuillez fournir un email valide.
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="id_contact" class="form-label">Contact:</label>
                 {{ form.contact }}
                 <div class="invalid-feedback">
-                    Please provide a valid contact number.
+                    Veuillez fournir un numéro de contact valide.
                 </div>
             </div>
             <div class="col-12 mt-3">
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Mettre à jour</button>
             </div>
         </div>
     </form>

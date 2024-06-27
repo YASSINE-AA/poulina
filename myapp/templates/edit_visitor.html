@@ -18,28 +18,28 @@
         {% csrf_token %}
         <div class="row g-3">
             <div class="col-md-6">
-                <label for="id_name" class="form-label">Name:</label>
+                <label for="id_name" class="form-label">Nom:</label>
                 <input type="text" class="form-control" name="name" id="id_name" required maxlength="100" value="{{ visitor.name }}">
                 <div class="invalid-feedback">
-                    Please provide a valid name.
+                    Veuillez fournir un nom valide.
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="id_email" class="form-label">Email:</label>
                 <input type="email" class="form-control" name="email" id="id_email" required maxlength="254" value="{{ visitor.email }}">
                 <div class="invalid-feedback">
-                    Please provide a valid email.
+                    Veuillez fournir une adresse email valide.
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="id_contact" class="form-label">Contact:</label>
                 <input type="text" class="form-control" name="contact" id="id_contact" required maxlength="15" value="{{ visitor.contact }}">
                 <div class="invalid-feedback">
-                    Please provide a valid contact number.
+                    Veuillez fournir un numéro de contact valide.
                 </div>
             </div>
             <div class="col-12 mt-3">
-                <button type="submit" class="btn btn-success btn-lg">Update</button>
+                <button type="submit" class="btn btn-success btn-lg">Mettre à jour</button>
             </div>
         </div>
     </form>
