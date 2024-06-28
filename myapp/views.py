@@ -263,7 +263,13 @@ def terminer_visite(request, pk):
     visite = Visite.objects.get(pk=pk)
     visite.date_fin = timezone.now()
     visite.save()
-    return redirect('visites')
+    messages.success(request, 'Visite terminée avec succès')
+    return redirect('gestion_visites')
+
+@login_required
+def bi_admin(request):
+    iframe = "https://app.powerbi.com/groups/me/reports/5d059524-1094-46d7-bc4c-5096e5c904d7/22f55a4ea78c26a24afd?experience=power-bi"
+    return render(request, 'bi_admin.html', {'iframe': iframe})
 
 @login_required
 def create_visite(request, visitor_id=None, employee_id=None):

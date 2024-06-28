@@ -23,7 +23,7 @@
                         <td>{{ visite.objet }}</td>
                         <td>{{ visite.date_debut|date:"d M Y H:i" }}</td>
                         <td>
-                            <a href="{% url 'terminer_visite' visite.pk %}" class="btn btn-success">Terminer</a>
+                            <a href="{% url 'terminer_visite' visite.pk %}" class="btn btn-success" style="all: unset; color: green; cursor: pointer;"> <i class="fas fa-check-circle me-1"></i> Terminer</a>
                         </td>
                     </tr>
                     {% endfor %}
